@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--    在别名前面启动懒加载-->
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 将积极的加载改为消极加载，按需加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <!--    起别名-->
+    <typeAliases>
+        <typeAlias type="com.qfedu.entity.User" alias="user"></typeAlias>
+    </typeAliases>
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/bank?useSSL=false"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--设置映射的配置文件-->
+        <mapper resource="com/qfedu/mapper/userMapper.xml" />
+<!--        <mapper resource="com/qfedu/mapper/EmployeeMapper.xml"/>-->
+<!--        <mapper resource="com/qfedu/one2many/DepartmentMapper.xml"/>-->
+<!--        <mapper resource="com/qfedu/one2many/EmployeeMapper.xml"/>-->
+<!--        <mapper resource="com/qfedu/many2many/mapper/StudentMapper.xml"/>-->
+<!--        <mapper resource="com/qfedu/many2many/mapper/CouresMapper.xml"/>-->
+    </mappers>
+</configuration>
