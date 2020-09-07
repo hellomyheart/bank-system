@@ -2,9 +2,11 @@ package com.qfedu.controller;
 
 import com.qfedu.entity.User;
 import com.qfedu.service.UserService;
-import com.qfedu.service.impl.UserServiceImpl;
 import com.qfedu.utils.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +24,15 @@ import java.io.IOException;
 
 @WebServlet("/login.do")
 public class LonginServlet extends HttpServlet {
-    private UserService userService = new UserServiceImpl();
+    @Autowired
+    private UserService userService;
+
+    //TODO 后期修改
+    @Override
+    public void init(ServletConfig config)throws ServletException{
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,9 +1,10 @@
 package com.qfedu.service.impl;
 
 import com.qfedu.dao.UserDao;
-import com.qfedu.dao.impl.UserDaoImpl;
 import com.qfedu.entity.User;
 import com.qfedu.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @description UserService实现类
@@ -12,8 +13,10 @@ import com.qfedu.service.UserService;
  * @author: Stephen Shen
  * @date: 2020/9/3 上午11:47
  */
+@Service
 public class UserServiceImpl implements UserService {
-    private UserDao userDao = new UserDaoImpl();
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public User login(String bankCode, String password) {
