@@ -1,11 +1,15 @@
 com/qfedu/service/impl/UserServiceImpl.class
 com/qfedu/common/JsonResult.class
 com/qfedu/service/UserService.class
-com/qfedu/controller/LonginServlet.class
 com/qfedu/controller/LoginController.class
+com/qfedu/service/TradeService.class
 com/qfedu/utils/MyBatisUtil.class
 com/qfedu/utils/JsonUtils.class
 com/qfedu/controller/UserController.class
+com/qfedu/service/impl/TradeServiceImpl.class
 com/qfedu/utils/StrUtils.class
+com/qfedu/vo/VTradeInfo.class
 com/qfedu/dao/UserDao.class
 com/qfedu/entity/User.class
+com/qfedu/controller/TradeController.class
+com/qfedu/dao/TradeDao.class
