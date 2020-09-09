@@ -51,10 +51,10 @@
             url: "user/query.do",
             dataType: "json",
             success: function (data) {
-                console.log(data)
                 if(data.code ==1)
                 {
-                    $("span").html(data.info)
+                    console.log(data)
+                    $("span").html(data.info.bankCode)
                 }else{
                     alert("还未登录");
                     window.location.href="login.html";

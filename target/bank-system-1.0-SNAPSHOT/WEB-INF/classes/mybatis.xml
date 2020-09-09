@@ -13,25 +13,24 @@
         <typeAlias type="com.qfedu.entity.User" alias="user"></typeAlias>
     </typeAliases>
 
-
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/bank?useSSL=false"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
-            </dataSource>
-        </environment>
-    </environments>
-    <mappers>
-        <!--设置映射的配置文件-->
-        <mapper resource="com/qfedu/mapper/userMapper.xml" />
+<!--    <environments default="development">-->
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC"/>-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/bank?useSSL=false"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="123456"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
+<!--    <mappers>-->
+<!--        &lt;!&ndash;设置映射的配置文件&ndash;&gt;-->
+<!--        <mapper resource="com/qfedu/mapper/userMapper.xml" />-->
 <!--        <mapper resource="com/qfedu/mapper/EmployeeMapper.xml"/>-->
 <!--        <mapper resource="com/qfedu/one2many/DepartmentMapper.xml"/>-->
 <!--        <mapper resource="com/qfedu/one2many/EmployeeMapper.xml"/>-->
 <!--        <mapper resource="com/qfedu/many2many/mapper/StudentMapper.xml"/>-->
 <!--        <mapper resource="com/qfedu/many2many/mapper/CouresMapper.xml"/>-->
-    </mappers>
+<!--    </mappers>-->
 </configuration>
