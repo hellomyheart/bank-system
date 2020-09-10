@@ -31,7 +31,8 @@ public class TradeController {
 
     @RequestMapping("/list.do")
     @ResponseBody
-    public JsonResult listTradeInfo(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd") Date beginTime, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime) {
+    //public JsonResult listTradeInfo(HttpSession session, @DateTimeFormat(pattern = "yyyy-MM-dd") Date beginTime, @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime) {
+    public JsonResult listTradeInfo(HttpSession session, Date beginTime, Date endTime) {
         User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
 
         List<VTradeInfo> allTrades = tradeService.findAllTrades(user.getId(), beginTime, endTime);

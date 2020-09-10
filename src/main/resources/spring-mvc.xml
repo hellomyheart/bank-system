@@ -15,7 +15,6 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-
     <!-- spring MVC 核心配置文件
             1.处理器映射器
             2.处理器配置器
@@ -71,14 +70,14 @@
     <!--spring mvc id 是对应的访问路径 class访问对应的实体类-->
 
     <!--    日期格式转换驱动-->
-    <mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="converterService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
                     <bean class="com.fasterxml.jackson.databind.ObjectMapper">
                         <property name="dateFormat">
                             <bean class="java.text.SimpleDateFormat">
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
                             </bean>
                         </property>
                     </bean>
@@ -94,6 +93,16 @@
         <!-- 前缀：/WEB-INF/jsp/ 后缀：.jsp /WEB-INF/jsp/list.jsp -->
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <!--    设置自定义转换器类-->
+    <bean id="converterService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.qfedu.convert.CustomerDateConvert"></bean>
+            </list>
+        </property>
     </bean>
 
     <!--他会将静态资源扔给web服务器，默认的servlet Tomcat下面的servlet    -->

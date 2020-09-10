@@ -1,6 +1,7 @@
 com/qfedu/service/impl/UserServiceImpl.class
 com/qfedu/common/JsonResult.class
 com/qfedu/service/UserService.class
+com/qfedu/convert/CustomerDateConvert.class
 com/qfedu/controller/LoginController.class
 com/qfedu/service/TradeService.class
 com/qfedu/utils/MyBatisUtil.class
