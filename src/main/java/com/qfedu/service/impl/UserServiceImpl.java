@@ -26,10 +26,9 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new RuntimeException("账号错误");
         }
-        if (!user.getPassword().equals(password)){
+        if (!user.getPassword().equals(password)) {
             throw new RuntimeException("密码错误");
         }
         return user;
-
     }
 }

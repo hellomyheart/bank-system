@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author: Stephen Shen
  * @date: 2020/9/9 下午3:41
  */
-public class VTradeInfo  {
+public class VTradeInfo {
     private Date createTime;
     private Double pay;
     private Double income;

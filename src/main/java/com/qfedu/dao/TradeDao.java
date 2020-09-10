@@ -14,6 +14,5 @@ import java.util.List;
  * @date: 2020/9/9 下午3:38
  */
 public interface TradeDao {
-    //    public List<VTradeInfo> findAll(Integer uid);
     public List<VTradeInfo> findAll(@Param("uid") Integer id, @Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
 }

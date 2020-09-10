@@ -5,17 +5,6 @@
 <!--namespace 命名空间必须是唯一的-->
 <mapper namespace="com.qfedu.dao.TradeDao">
 
-    <!--    <select id="findAll" parameterType="int" resultType="com.qfedu.vo.VTradeInfo">-->
-    <!--        select createTime,-->
-    <!--        case when money > 0 then money end      pay,-->
-    <!--        case when money &lt; 0 then abs(money) end incomoe,-->
-    <!--        balance,-->
-    <!--        `comment`,-->
-    <!--        consumType-->
-    <!--        from t_trade-->
-    <!--        where uid =#{uid} or otherUid =#{uid}-->
-    <!--    </select>-->
-
     <select id="findAll" parameterType="map" resultType="com.qfedu.vo.VTradeInfo">
         select createTime,
         case when money > 0 then money end pay,
