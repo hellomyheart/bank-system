@@ -70,7 +70,7 @@
     <!--spring mvc id 是对应的访问路径 class访问对应的实体类-->
 
     <!--    日期格式转换驱动-->
-    <mvc:annotation-driven conversion-service="converterService">
+    <mvc:annotation-driven conversion-service="converterService" validator="validator">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
@@ -105,9 +105,34 @@
         </property>
     </bean>
 
+<!--    配置资源文件-->
+    <bean id="hibernateMessages" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="basenames">
+            <list>
+                <value>ValidationMessages</value>
+            </list>
+        </property>
+    </bean>
+<!--配置验证器-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
+        <property name="validationMessageSource" ref="hibernateMessages"></property>
+    </bean>
+
+<!--如果直接在控制器的方法上面直接使用验证注解，必须加下面的配置-->
+<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"></bean>
+
     <!--他会将静态资源扔给web服务器，默认的servlet Tomcat下面的servlet    -->
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
 
-    <context:component-scan base-package="com.qfedu.controller"></context:component-scan>
+    <context:component-scan base-package="com.qfedu.controller,com.qfedu.common"></context:component-scan>
 
+
+<!--    include-filter设置扫描哪些注解-->
+<!--    exclude-filter 设置不扫描哪些注解-->
+<!--    <context:component-scan base-package="com.qfedu">-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
+<!--    </context:component-scan>-->
 </beans>
