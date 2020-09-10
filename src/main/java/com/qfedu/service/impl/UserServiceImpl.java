@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+
     @Override
     public User login(String bankCode, String password) {
         User user = userDao.findByCode(bankCode);
@@ -30,5 +31,16 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("密码错误");
         }
         return user;
+    }
+
+
+    @Override
+    public void updateHeadImg(Integer id, String imagePath) {
+
+        User u = new User();
+        u.setId(id);
+        u.setImagePath(imagePath);
+        userDao.update(u);
+
     }
 }

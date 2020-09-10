@@ -9,4 +9,28 @@
         select * from  t_user
         where bankCode =#{bankCode}
     </select>
+    <delete id="update" parameterType="user">
+        update t_user
+        <set>
+            <if test="bankCode !=null ">
+                bankCode = #{bankCode},
+            </if>
+
+            <if test="password !=null ">
+                password = #{password},
+            </if>
+
+            <if test="balance !=null ">
+                balance = #{balance},
+            </if>
+            <if test="status !=null ">
+                status = #{status},
+            </if>
+
+            <if test="imagePath !=null ">
+                imagePath = #{imagePath}
+            </if>
+        </set>
+        where id=#{id}
+    </delete>
 </mapper>

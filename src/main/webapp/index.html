@@ -27,7 +27,7 @@
 
 <body>
     <div id="header">
-        账号：<span id=""></span>
+        账号：<span id=""></span><img src="/upload/test.jpg" width="30" height="30">
         <a href="#">退出</a>
     </div>
 
@@ -36,7 +36,7 @@
             <a href="balance.html" target="myframe">查询余额</a><br>
             <a href="trans.html" target="myframe">转账</a><br>
             <a href="transfer.html" target="myframe">转账记录</a><br>
-            <a href="cp.html" target="myframe">修改密码</a>
+            <a href="cp.html" target="myframe">修改密码</a><br>
             <a href="upload.html" target="myframe">上传头像</a>
         </div>
         <div class="content" id="content">
@@ -55,7 +55,8 @@
                 if(data.code ==1)
                 {
                     console.log(data)
-                    $("span").html(data.info.bankCode)
+                    $("span").html(data.info.bankCode);
+                    $("img").attr("src",data.info.imagePath);
                 }else{
                     alert("还未登录");
                     window.location.href="login.html";

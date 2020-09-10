@@ -98,7 +98,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.2</version>
         </dependency>
-        <!-- 文件上传 -->
+        <!-- 文件上传 依赖 -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>

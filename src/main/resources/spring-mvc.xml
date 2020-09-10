@@ -69,6 +69,10 @@
     <!--    <bean  id="userhandler2" class="com.baidu.handler.UserHandler2"></bean>-->
     <!--spring mvc id 是对应的访问路径 class访问对应的实体类-->
 
+    <context:component-scan base-package="com.qfedu.controller,com.qfedu.common"></context:component-scan>
+
+
+
     <!--    日期格式转换驱动-->
     <mvc:annotation-driven conversion-service="converterService" validator="validator">
         <mvc:message-converters>
@@ -105,7 +109,7 @@
         </property>
     </bean>
 
-<!--    配置资源文件-->
+    <!--    配置资源文件-->
     <bean id="hibernateMessages" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="defaultEncoding" value="UTF-8"></property>
         <property name="basenames">
@@ -114,25 +118,38 @@
             </list>
         </property>
     </bean>
-<!--配置验证器-->
+    <!--配置验证器-->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
         <property name="validationMessageSource" ref="hibernateMessages"></property>
     </bean>
 
-<!--如果直接在控制器的方法上面直接使用验证注解，必须加下面的配置-->
-<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"></bean>
+    <!--如果直接在控制器的方法上面直接使用验证注解，必须加下面的配置-->
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"></bean>
 
     <!--他会将静态资源扔给web服务器，默认的servlet Tomcat下面的servlet    -->
+
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
 
-    <context:component-scan base-package="com.qfedu.controller,com.qfedu.common"></context:component-scan>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设定默认编码 -->
+        <!--        <property name="defaultEncoding" value="UTF-8"></property>-->
+        <!-- 设定文件上传的最大值为5MB，5*1024*1024 -->
+        <property name="maxUploadSize" value="5242880"></property>
+        <!-- 设定文件上传时写入内存的最大值，如果小于这个参数不会生成临时文件，默认为10240 -->
+        <!--        <property name="maxInMemorySize" value="40960"></property>-->
+        <!-- 上传文件的临时路径 -->
+        <!--        <property name="uploadTempDir" value="fileUpload/temp"></property>-->
+        <!-- 延迟文件解析 -->
+        <!--        <property name="resolveLazily" value="true"/>-->
+    </bean>
 
 
-<!--    include-filter设置扫描哪些注解-->
-<!--    exclude-filter 设置不扫描哪些注解-->
-<!--    <context:component-scan base-package="com.qfedu">-->
-<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
-<!--        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
-<!--    </context:component-scan>-->
+
+    <!--    include-filter设置扫描哪些注解-->
+    <!--    exclude-filter 设置不扫描哪些注解-->
+    <!--    <context:component-scan base-package="com.qfedu">-->
+    <!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    <!--        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
+    <!--    </context:component-scan>-->
 </beans>

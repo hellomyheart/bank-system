@@ -11,5 +11,28 @@
         <input type="file" name="upfile" id="upfile"><br/>
         <input type="submit" value="上传">
     </form>
+    <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+    <!-- 支持异步上传 -->
+    <script type="text/javascript" src="js/jquery.form.min.js"></script>
+    <!-- ajax -->
+<script>
+    $("form").submit(function(){
+        //$.ajax 不能异步上传
+        //$.ajaxsubmit 能异步上传
+
+        $("form").ajaxSubmit({
+            type:"post",
+            url:"upload.do",
+            data:$("form").serialize(),
+            dataType:"json",
+            success: function(data){
+                alert(data.info);
+            }
+        })
+        return false;
+
+    })
+</script>
+
 </body>
 </html>

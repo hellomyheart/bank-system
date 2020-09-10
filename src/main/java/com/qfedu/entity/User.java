@@ -13,6 +13,15 @@ public class User {
     private String password;
     private Double balance;
     private Integer status;
+    private String imagePath;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     public Integer getId() {
         return id;
