@@ -6,6 +6,7 @@ import com.qfedu.vo.VTradeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,8 +22,8 @@ public class TradeServiceImpl implements TradeService {
     private TradeDao tradeDao;
 
     @Override
-    public List<VTradeInfo> findAllTrades() {
-        List<VTradeInfo> trades = tradeDao.findAll();
+    public List<VTradeInfo> findAllTrades(Integer id,Date beginTime,Date endTime) {
+        List<VTradeInfo> trades = tradeDao.findAll(id,beginTime,endTime);
         return trades;
     }
 }

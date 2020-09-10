@@ -6,11 +6,13 @@ import com.qfedu.service.TradeService;
 import com.qfedu.utils.StrUtils;
 import com.qfedu.vo.VTradeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,10 +31,17 @@ public class TradeController {
 
     @RequestMapping("/list.do")
     @ResponseBody
-    public JsonResult listTradeInfo(){
-        List<VTradeInfo> allTrades = tradeService.findAllTrades();
+    public JsonResult listTradeInfo(HttpSession session,@DateTimeFormat(pattern = "yyyy-MM-dd") Date beginTime,@DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime){
+        System.out.println("beginTime"+beginTime+",endTime"+endTime);
+        User user =(User) session.getAttribute(StrUtils.LOGIN_USER);
+
+
+        List<VTradeInfo> allTrades = tradeService.findAllTrades(user.getId(),beginTime,endTime);
         JsonResult jsonResult = new JsonResult(1, allTrades);
-        return jsonResult;
+
+
+
+              return jsonResult;
     }
 
 //    public List<VTradeInfo> findAll(HttpSession session) {

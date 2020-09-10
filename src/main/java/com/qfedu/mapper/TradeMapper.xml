@@ -5,25 +5,38 @@
 <!--namespace 命名空间必须是唯一的-->
 <mapper namespace="com.qfedu.dao.TradeDao">
 
-<!--    <select id="findAll" parameterType="int" resultType="com.qfedu.vo.VTradeInfo">-->
-<!--        select createTime,-->
-<!--        case when money > 0 then money end      pay,-->
-<!--        case when money &lt; 0 then abs(money) end incomoe,-->
-<!--        balance,-->
-<!--        `comment`,-->
-<!--        consumType-->
-<!--        from t_trade-->
-<!--        where uid =#{uid} or otherUid =#{uid}-->
-<!--    </select>-->
+    <!--    <select id="findAll" parameterType="int" resultType="com.qfedu.vo.VTradeInfo">-->
+    <!--        select createTime,-->
+    <!--        case when money > 0 then money end      pay,-->
+    <!--        case when money &lt; 0 then abs(money) end incomoe,-->
+    <!--        balance,-->
+    <!--        `comment`,-->
+    <!--        consumType-->
+    <!--        from t_trade-->
+    <!--        where uid =#{uid} or otherUid =#{uid}-->
+    <!--    </select>-->
 
-    <select id="findAll" resultType="com.qfedu.vo.VTradeInfo">
+    <select id="findAll" parameterType="map" resultType="com.qfedu.vo.VTradeInfo">
         select createTime,
-        case when money > 0 then money end      pay,
+        case when money > 0 then money end pay,
         case when money &lt; 0 then abs(money) end incomoe,
         balance,
         `comment`,
         consumType
         from t_trade
+        <where>
+            <if test="beginTime !=null">
+                date_format(createTime,'%Y-%m-%d') >= date_format(#{beginTime},'%Y-%m-%d')
+            </if>
+
+            <if test="endTime !=null">
+                and date_format(createTime,'%Y-%m-%d') &lt;= date_format(#{endTime},'%Y-%m-%d')
+            </if>
+            <if test="uid != null">
+                and uid=${uid}
+            </if>
+
+        </where>
     </select>
 
 </mapper>

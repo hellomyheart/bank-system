@@ -8,9 +8,9 @@
 </head>
 
 <body>
-    <input type="text" name="beginTime" id="beginTime">
-    <input type="text" name="endTime" id="endTime">
-    <button>搜索</button>
+    <input type="date" name="beginTime" id="beginTime">
+    <input type="date" name="endTime" id="endTime">
+    <button onclick="searchInfo()">搜索</button>
 
     <table>
         <tr>
@@ -26,31 +26,37 @@
     </table>
     <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
     <script>
-        $(function(){
+        $(function () {
+            searchInfo();
+        })
+
+        function searchInfo() {
             $.ajax({
                 type: "get",
                 url: "trade/list.do",
+                data:{beginTime:$("#beginTime").val(),endTime:$("#endTime").val()},
                 dataType: "json",
-                success: function(data){
+                success: function (data) {
                     console.log(data);
-                    if (data.code ==1){
-                        var infos=data.info;
-                        $(infos).each(function (){
-                            var html= '<tr>'+
-                            '<td>'+this.createTime+'</td>'+
-                            '<td>'+this.pay+'</td>'+
-                            '<td>'+this.income+'</td>'+
-                            '<td>'+this.consumType+'</td>'+
-                            '<td>'+this.balance+'</td>'+
-                            '<td>'+this.comment+'</td>'+
-                            '</tr>';
+                    if (data.code == 1) {
+                        $("#tid").empty();
+                        var infos = data.info;
+                        $(infos).each(function () {
+                            var html = '<tr>' +
+                                '<td>' + this.createTime + '</td>' +
+                                '<td>' + this.pay + '</td>' +
+                                '<td>' + this.income + '</td>' +
+                                '<td>' + this.consumType + '</td>' +
+                                '<td>' + this.balance + '</td>' +
+                                '<td>' + this.comment + '</td>' +
+                                '</tr>';
 
                             $("#tid").append($(html));
                         })
                     }
                 }
-            })
-        })    
+            });
+        }
     </script>
 
 </body>
