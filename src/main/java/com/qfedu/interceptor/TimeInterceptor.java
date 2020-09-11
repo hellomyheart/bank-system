@@ -16,14 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 //看一下请求前，和渲染后中间间隔的时间差
 public class TimeInterceptor implements HandlerInterceptor {
 
-    long beginTTime;
-    long endTTime;
+    //线程安全存储变量
+    private ThreadLocal<Long> threadLocal=new ThreadLocal<>();
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         System.out.println("prehandle:");
-        beginTTime = System.currentTimeMillis();
-        Thread.sleep(5000);
+        //threadLocal存放变量值
+        threadLocal.set(System.currentTimeMillis());
+//        Thread.sleep(5000);
         //放行
         return true;
     }
@@ -38,8 +40,9 @@ public class TimeInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
         System.out.println("afterCompletion");
-        endTTime= System.currentTimeMillis();
-        System.out.println(endTTime);
-        System.out.println("差："+(endTTime-beginTTime));
+        Long endTime = System.currentTimeMillis();
+        System.out.println(endTime);
+        Long beginTime = threadLocal.get();
+        System.out.println("差：" + (endTime - beginTime));
     }
 }

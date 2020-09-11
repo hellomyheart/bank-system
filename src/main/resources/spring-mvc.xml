@@ -150,7 +150,17 @@
             <!--            任意路径下面后缀是.do的资源-->
             <mvc:mapping path="/**/*.do"/>
 <!--            自定义的拦截器-->
-            <bean id="timeInterceptor" class="com.qfedu.interceptor.TimeInterceptor"></bean>
+            <bean class="com.qfedu.interceptor.TimeInterceptor"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!--            拦截所有资源-->
+            <mvc:mapping path="/**"/>
+
+<!--            排除js文件夹-->
+            <mvc:exclude-mapping path="/js/**"/>
+<!--            排除login.html,login.do-->
+            <mvc:exclude-mapping path="/**/login.*"/>
+            <bean class="com.qfedu.interceptor.LoginInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 
