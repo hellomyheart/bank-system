@@ -47,6 +47,11 @@
 
 <script>
     $(function () {
+     updateHead();
+    });
+
+
+    function updateHead(){
         $.ajax({
             type: "get",
             url: "user/query.do",
@@ -63,7 +68,7 @@
                 }
             }
         })
-    })
+    }
 </script>
 
 </html>

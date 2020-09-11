@@ -43,4 +43,9 @@ public class UserServiceImpl implements UserService {
         userDao.update(u);
 
     }
+
+    @Override
+    public User selectByCode(String bankCode) {
+        return userDao.findByCode(bankCode);
+    }
 }
