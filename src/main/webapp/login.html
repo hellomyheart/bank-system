@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+    <script>
+        //如果该页面不是iframe的父页面，则把该页面变成父页面
+        if (window != top) 
+            top.location.href = location.href;
+    </script>
 </head>
 
 <body>
@@ -15,24 +20,24 @@
         <input type="submit" value="登录">
     </form>
 
-<script>
-    $("form").submit(function () {
-        $.ajax({
-            type:"post",
-            url:"login.do",
-            data:$("form").serialize(),//bankCode=111222&password=111222
-            dataType:"json",
-            success:function (data) {
-                console.log(data)
-                if (data.code == 1) {
-                    window.location.href="index.html";
-                } else {
-                    alert(data.info);
+    <script>
+        $("form").submit(function () {
+            $.ajax({
+                type: "post",
+                url: "login.do",
+                data: $("form").serialize(), //bankCode=111222&password=111222
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    if (data.code == 1) {
+                        window.location.href = "index.html";
+                    } else {
+                        alert(data.info);
+                    }
                 }
-            }
+            })
         })
-    })
-</script>
+    </script>
 
 </body>
 
