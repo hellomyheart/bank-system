@@ -27,5 +27,9 @@
 
         </where>
     </select>
+    <insert id="add" parameterType="com.qfedu.entity.Trade">
+        insert into t_trade(uid,money,createTime,comment,balance)
+        values (#{uid},#{money},#{createTime},#{comment},#{balance})
+    </insert>
 
 </mapper>

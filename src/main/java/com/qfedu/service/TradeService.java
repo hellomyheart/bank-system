@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface TradeService {
     public List<VTradeInfo> findAllTrades(Integer id, Date beginTime, Date endTime);
+    public void transfer(String code,String otherCode,Double money);
 }

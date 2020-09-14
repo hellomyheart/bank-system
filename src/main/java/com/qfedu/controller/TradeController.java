@@ -41,4 +41,13 @@ public class TradeController {
         return jsonResult;
     }
 
+    @RequestMapping("/transfer.do")
+    @ResponseBody
+    public JsonResult transfer(String otherCode,double money,HttpSession session){
+        User u = (User)session.getAttribute(StrUtils.LOGIN_USER);
+        tradeService.transfer(u.getBankCode(),otherCode,money);
+        return new JsonResult(1,"转账成功");
+
+    }
+
 }
