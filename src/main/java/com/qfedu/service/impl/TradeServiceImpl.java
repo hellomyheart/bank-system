@@ -21,6 +21,9 @@ import java.util.List;
  */
 @Service
 public class TradeServiceImpl implements TradeService {
+
+    public static final String CONSUM_TYPE_IN = "收入";
+    public static final String CONSUM_TYPE_OUT = "支出";
     @Autowired
     private TradeDao tradeDao;
 
@@ -37,54 +40,69 @@ public class TradeServiceImpl implements TradeService {
     @Override
     public void transfer(String code, String otherCode, Double money) {
 
+
+        //转账金额检查
+        if (money < 0) {
+            throw new RuntimeException("转账金额不能为负");
+        }
+
         //要被扣钱的人
         User loginUser = userDao.findByCode(code);
 
-        System.out.println(code+","+otherCode+","+money);
         //要被加钱的人
         User otherUser = userDao.findByCode(otherCode);
 
-        if (otherUser ==null){
-            throw new RuntimeException("用户不存在");
-        }
-        if (loginUser.getBankCode().equals(otherCode)){
-            throw new RuntimeException("不能给自己转钱");
-        }
+        //转账前置检查
+        checkAccount(loginUser, otherUser, money);
 
-        if (loginUser.getBalance() < money){
-            throw new RuntimeException("余额不足");
-        }
 
-        //当前用户减钱
-        Trade outTrade = new Trade();
-        outTrade.setUid(loginUser.getId());
-//        outTrade.setOtherUid();
-        outTrade.setMoney(0-money);
-        outTrade.setCreateTime(new Date());
-        outTrade.setBalance(loginUser.getBalance()-money);
-//        outTrade.setComment();
-//        outTrade.setConsumType();
-
-        tradeDao.add(outTrade);
-        loginUser.setBalance(loginUser.getBalance()-money);
-        userDao.update(loginUser);
+        //原账户减钱
+        changeUserAndTrade(loginUser, Integer.valueOf(otherCode), money, "转出", CONSUM_TYPE_OUT);
 
         //另一个账户加钱
-        Trade inTrade = new Trade();
-        inTrade.setUid(otherUser.getId());
-//        outTrade.setOtherUid();
-        inTrade.setMoney(money);
-        outTrade.setCreateTime(new Date());
-        inTrade.setBalance(otherUser.getBalance()+money);
-//        outTrade.setComment();
-//        outTrade.setConsumType();
-
-        tradeDao.add(inTrade);
-        otherUser.setBalance(otherUser.getBalance()+money);
-        userDao.update(otherUser);
-
-
+        changeUserAndTrade(otherUser, loginUser.getId(), 0 - money, "转入", CONSUM_TYPE_IN);
 
 
     }
+
+    /**
+     * 转账前置检查
+     *
+     * @param loginUser
+     * @param otherUser
+     */
+    public void checkAccount(User loginUser, User otherUser, Double money) {
+        if (otherUser == null) {
+            throw new RuntimeException("用户不存在");
+        }
+        if (loginUser.getBankCode().equals(otherUser.getBankCode())) {
+            throw new RuntimeException("不能给自己转钱");
+        }
+
+        if (loginUser.getBalance() < money) {
+            throw new RuntimeException("余额不足");
+        }
+    }
+
+    public void changeUserAndTrade(User user, Integer otherUid, Double money, String comment, String consumType) {
+
+        //更新账户余额
+        user.setBalance(user.getBalance() - money);
+        userDao.update(user);
+
+        //添加转账记录
+        Trade trade = new Trade();
+        trade.setUid(user.getId());
+        trade.setOtherUid(otherUid);
+        trade.setMoney(0 - Math.abs(money));
+        trade.setCreateTime(new Date());
+        trade.setBalance(user.getBalance());
+        trade.setComment(comment);
+        trade.setConsumType(consumType);
+
+        tradeDao.add(trade);
+
+    }
+
+
 }
