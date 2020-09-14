@@ -58,4 +58,42 @@
         <property name="basePackage" value="com.qfedu.dao"></property>
     </bean>
 
+
+    <!--    Spring事务管理-->
+    <bean id="txManage" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManage"/>
+
+    <!--    &lt;!&ndash;    事务增强&ndash;&gt;-->
+
+    <tx:advice id="txAdvice" transaction-manager="txManage">
+        <tx:attributes>
+            <!--            针对切点对应的方法,就是目标对象
+            在Service方法中的名字，一定要和下面的name属性一致-->
+            <!--            read-only 只读，只有查询才设置为true-->
+            <!--            propagation 传播特性-->
+            <tx:method name="add*" read-only="false" propagation="REQUIRED"/>
+            <tx:method name="delete*" read-only="false" propagation="REQUIRED"/>
+            <tx:method name="update*" read-only="false" propagation="REQUIRED"/>
+            <!--            查询是true-->
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+            <!--            表示没有满足上面的方法名的时候，是不支持事务的-->
+            <tx:method name="*" propagation="NOT_SUPPORTED"/>
+            <tx:method name="select*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="login*" read-only="true" propagation="SUPPORTS" />
+        </tx:attributes>
+    </tx:advice>
+
+
+    <!--    aop的配置-->
+    <!--切入点，针对于业务层-->
+    <aop:config>
+        <aop:pointcut id="pc" expression="execution(* com.qfedu.service.impl.*.*(..))"/>
+        <!--        切面类，针对于事务，不需要写切面类，因为事务中已经有了事务的切面类-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
+    </aop:config>
+
+
 </beans>

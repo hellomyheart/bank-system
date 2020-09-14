@@ -145,20 +145,20 @@
     <!--   配置拦截器-->
 
     <mvc:interceptors>
-        <mvc:interceptor>
-            <!--            配置哪些资源需要被拦截-->
-            <!--            任意路径下面后缀是.do的资源-->
-            <mvc:mapping path="/**/*.do"/>
-<!--            自定义的拦截器-->
-            <bean class="com.qfedu.interceptor.TimeInterceptor"></bean>
-        </mvc:interceptor>
+        <!--        <mvc:interceptor>-->
+        <!--            &lt;!&ndash;            配置哪些资源需要被拦截&ndash;&gt;-->
+        <!--            &lt;!&ndash;            任意路径下面后缀是.do的资源&ndash;&gt;-->
+        <!--            <mvc:mapping path="/**/*.do"/>-->
+        <!--            &lt;!&ndash;            自定义的拦截器&ndash;&gt;-->
+        <!--            <bean class="com.qfedu.interceptor.TimeInterceptor"></bean>-->
+        <!--        </mvc:interceptor>-->
         <mvc:interceptor>
             <!--            拦截所有资源-->
             <mvc:mapping path="/**"/>
 
-<!--            排除js文件夹-->
+            <!--            排除js文件夹-->
             <mvc:exclude-mapping path="/js/**"/>
-<!--            排除login.html,login.do-->
+            <!--            排除login.html,login.do-->
             <mvc:exclude-mapping path="/**/login.*"/>
             <bean class="com.qfedu.interceptor.LoginInterceptor"></bean>
         </mvc:interceptor>
