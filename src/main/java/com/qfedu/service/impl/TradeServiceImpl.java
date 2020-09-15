@@ -36,7 +36,12 @@ public class TradeServiceImpl implements TradeService {
         return trades;
     }
 
-    //业务层
+    /**
+     * 转账业务
+     * @param code
+     * @param otherCode
+     * @param money
+     */
     @Override
     public void transfer(String code, String otherCode, Double money) {
 
@@ -54,7 +59,6 @@ public class TradeServiceImpl implements TradeService {
 
         //转账前置检查d340a2501bc6
         checkAccount(loginUser, otherUser, money);
-
 
         //原账户减钱
         changeUserAndTrade(loginUser, otherUser.getId(), money, "转出", CONSUM_TYPE_OUT);
@@ -93,7 +97,7 @@ public class TradeServiceImpl implements TradeService {
      * @param comment
      * @param consumType
      */
-    public void changeUserAndTrade(User user, Integer otherUid, Double money, String comment, String consumType) {
+    public void changeUserAndTrade(User  user, Integer otherUid, Double money, String comment, String consumType) {
 
         //更新账户余额
         //money>0是转出
