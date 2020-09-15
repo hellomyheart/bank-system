@@ -1,5 +1,6 @@
 package com.qfedu.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qfedu.dao.TradeDao;
 import com.qfedu.dao.UserDao;
 import com.qfedu.entity.Trade;
@@ -31,7 +32,10 @@ public class TradeServiceImpl implements TradeService {
     private UserDao userDao;
 
     @Override
-    public List<VTradeInfo> findAllTrades(Integer id, Date beginTime, Date endTime) {
+    public List<VTradeInfo> findAllTrades(Integer id, Date beginTime, Date endTime,Integer page,Integer limit) {
+
+        //设置页码和每页显示的记录数，该语句紧跟数据库查询的相关语句
+        PageHelper.startPage(page,limit);
         List<VTradeInfo> trades = tradeDao.findAll(id, beginTime, endTime);
         return trades;
     }
