@@ -8,7 +8,7 @@
     <select id="findAll" parameterType="map" resultType="com.qfedu.vo.VTradeInfo">
         select createTime,
         case when money > 0 then money end pay,
-        case when money &lt; 0 then abs(money) end incomoe,
+        case when money &lt; 0 then abs(money) end income,
         balance,
         `comment`,
         consumType

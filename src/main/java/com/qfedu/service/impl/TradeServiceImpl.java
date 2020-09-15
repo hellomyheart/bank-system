@@ -52,15 +52,15 @@ public class TradeServiceImpl implements TradeService {
         //要被加钱的人
         User otherUser = userDao.findByCode(otherCode);
 
-        //转账前置检查
+        //转账前置检查d340a2501bc6
         checkAccount(loginUser, otherUser, money);
 
 
         //原账户减钱
-        changeUserAndTrade(loginUser, Integer.valueOf(otherCode), money, "转出", CONSUM_TYPE_OUT);
+        changeUserAndTrade(loginUser, otherUser.getId(), money, "转出", CONSUM_TYPE_OUT);
 
         //另一个账户加钱
-        changeUserAndTrade(otherUser, loginUser.getId(), 0 - money, "转入", CONSUM_TYPE_IN);
+        changeUserAndTrade(otherUser, loginUser.getId(),  -money, "转入", CONSUM_TYPE_IN);
 
 
     }
@@ -84,9 +84,20 @@ public class TradeServiceImpl implements TradeService {
         }
     }
 
+
+    /**
+     * 更新账户与添加转账记录
+     * @param user
+     * @param otherUid
+     * @param money
+     * @param comment
+     * @param consumType
+     */
     public void changeUserAndTrade(User user, Integer otherUid, Double money, String comment, String consumType) {
 
         //更新账户余额
+        //money>0是转出
+        //money<0是转入
         user.setBalance(user.getBalance() - money);
         userDao.update(user);
 
@@ -94,7 +105,7 @@ public class TradeServiceImpl implements TradeService {
         Trade trade = new Trade();
         trade.setUid(user.getId());
         trade.setOtherUid(otherUid);
-        trade.setMoney(0 - Math.abs(money));
+        trade.setMoney(money);
         trade.setCreateTime(new Date());
         trade.setBalance(user.getBalance());
         trade.setComment(comment);
