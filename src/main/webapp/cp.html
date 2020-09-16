@@ -6,6 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    This is a cp
+    <form action="">
+        请再次输入原密码：<input type="text" name="oldPassword"><br>
+        请输入新密码：   <input type="text" name="newPassword" id="">
+        <input type="submit" value="修改密码">
+</form>
+<script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+
+<script>
+    $("form").submit(function () {
+        $.ajax({
+            type: "post",
+            url: "user/changepassword.do",
+            data: $("form").serialize(),
+            success: function (data) {
+                alert(data.info)
+            }
+
+        })
+        return false;
+    })
+</script>
+
 </body>
 </html>

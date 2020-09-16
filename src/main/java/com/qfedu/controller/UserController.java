@@ -6,6 +6,7 @@ import com.qfedu.service.UserService;
 import com.qfedu.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +25,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
     @RequestMapping("/query.do")
     @ResponseBody
     public JsonResult getLoginInfo(HttpSession session) {
@@ -41,5 +43,21 @@ public class UserController {
 
         return jsonResult;
     }
+
+
+    @RequestMapping("/changepassword.do")
+    @ResponseBody
+    public JsonResult changePassword(String oldPassword,String newPassword,HttpSession session) {
+
+
+        User user = (User) session.getAttribute(StrUtils.LOGIN_USER);
+        userService.updatePassword(user.getBankCode(),oldPassword,newPassword);
+
+        JsonResult jsonResult = new JsonResult(1, "修改成功");
+        return jsonResult;
+
+    }
+
+
 
 }
