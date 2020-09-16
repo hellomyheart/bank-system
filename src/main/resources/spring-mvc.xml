@@ -158,6 +158,7 @@
 
             <!--            排除js文件夹-->
             <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/layui/**"/>
             <!--            排除login.html,login.do-->
             <mvc:exclude-mapping path="/**/login.*"/>
             <bean class="com.qfedu.interceptor.LoginInterceptor"></bean>
