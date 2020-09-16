@@ -26,6 +26,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
+    /**
+     *     查询用户信息
+     * @param session
+     * @return
+     */
     @RequestMapping("/query.do")
     @ResponseBody
     public JsonResult getLoginInfo(HttpSession session) {
@@ -45,6 +51,13 @@ public class UserController {
     }
 
 
+    /**
+     * 修改密码
+     * @param oldPassword
+     * @param newPassword
+     * @param session
+     * @return
+     */
     @RequestMapping("/changepassword.do")
     @ResponseBody
     public JsonResult changePassword(String oldPassword,String newPassword,HttpSession session) {
@@ -57,7 +70,5 @@ public class UserController {
         return jsonResult;
 
     }
-
-
 
 }
