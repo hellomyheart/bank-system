@@ -10,7 +10,12 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * @description
@@ -69,6 +74,27 @@ public class UserController {
         JsonResult jsonResult = new JsonResult(1, "修改成功");
         return jsonResult;
 
+    }
+
+    /**
+     * 退出登录
+     * @param session
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping("/logout.do")
+    @ResponseBody
+    public void logOut(HttpSession session, HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws ServletException, IOException {
+
+        //清除session
+        session.removeAttribute(StrUtils.LOGIN_USER);
+
+        //转发到登录页面有问题，比较特殊，其他静态资源无法获取
+//        httpServletRequest.getRequestDispatcher("/login.html").forward(httpServletRequest,httpServletResponse);
+        //重定向没有问题
+        httpServletResponse.sendRedirect("/login.html");
     }
 
 }
