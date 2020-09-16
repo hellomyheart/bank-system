@@ -1,5 +1,6 @@
 package com.qfedu.service;
 
+import com.qfedu.common.JsonResult;
 import com.qfedu.entity.User;
 
 /**
@@ -14,4 +15,5 @@ public interface UserService {
     public void updateHeadImg(Integer id,String imagePath);
     public User selectByCode(String bankCode);
     public void updatePassword(String  bankCode, String oldPassword,String newPassword);
+    public JsonResult insertUser(User user);
 }

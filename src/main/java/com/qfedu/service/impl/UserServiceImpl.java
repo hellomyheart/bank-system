@@ -78,4 +78,21 @@ public class UserServiceImpl implements UserService {
         userDao.update(user1);
 
     }
+
+    @Override
+    public JsonResult insertUser(User user) {
+
+        User oUser = userDao.findByCode(user.getBankCode());
+        if (oUser !=null){
+            JsonResult jsonResult = new JsonResult(0, "注册失败，该银行卡号已存在");
+            return jsonResult;
+        }
+
+        //加盐,密码加密
+        String slat = "stephenshen";
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + slat).getBytes()));
+        userDao.insertUser(user);
+        JsonResult jsonResult = new JsonResult(1, "注册成功");
+        return jsonResult;
+    }
 }

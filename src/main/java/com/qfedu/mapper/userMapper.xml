@@ -9,7 +9,7 @@
         select * from  t_user
         where bankCode =#{bankCode}
     </select>
-    <delete id="update" parameterType="user">
+    <update id="update" parameterType="user">
         update t_user
         <set>
             <if test="bankCode !=null ">
@@ -32,5 +32,9 @@
             </if>
         </set>
         where id=#{id}
-    </delete>
+    </update>
+    <insert id="insertUser" parameterType="user">
+        insert into t_user(bankCode,password)
+        value (#{bankCode},#{password})
+    </insert>
 </mapper>

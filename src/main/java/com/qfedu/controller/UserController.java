@@ -7,7 +7,9 @@ import com.qfedu.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.DispatcherType;
@@ -95,6 +97,26 @@ public class UserController {
 //        httpServletRequest.getRequestDispatcher("/login.html").forward(httpServletRequest,httpServletResponse);
         //重定向没有问题
         httpServletResponse.sendRedirect("/login.html");
+    }
+
+
+    /**
+     * 注册账号
+     * @param bankCode
+     * @param password
+     * @return
+     */
+    @RequestMapping("/register.do")
+    @ResponseBody
+    public JsonResult register( String bankCode,String password) {
+
+        User user = new User();
+        user.setBankCode(bankCode);
+        user.setPassword(password);
+
+        return userService.insertUser(user);
+
+
     }
 
 }
